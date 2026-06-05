@@ -96,7 +96,12 @@ export function MatchCard({
             <Badge variant="secondary">Grupo {match.group}</Badge>
           )}
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        {/* Kickoff is shown in the viewer's timezone; SSR renders the server's,
+            so suppress the expected hydration text mismatch. */}
+        <div
+          className="flex items-center gap-2 text-sm text-muted-foreground"
+          suppressHydrationWarning
+        >
           <Clock className="h-3 w-3" />
           {format(new Date(match.matchDate), "d 'de' MMMM, HH:mm", {
             locale: es,
