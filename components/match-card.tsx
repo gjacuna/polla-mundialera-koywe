@@ -302,8 +302,11 @@ export function MatchCard({
           </div>
         )}
 
-        {/* Market sentiment */}
-        {stats && stats.total > 0 && <MarketBar match={match} stats={stats} />}
+        {/* Market sentiment — revealed only after the user places their own
+            prediction, so the market can't influence the bet */}
+        {prediction && stats && stats.total > 0 && (
+          <MarketBar match={match} stats={stats} />
+        )}
       </CardContent>
     </Card>
   )
