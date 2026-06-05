@@ -4,7 +4,14 @@ import { authClient } from '@/lib/auth-client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Trophy, LogOut, User, BarChart3, Settings } from 'lucide-react'
+import {
+  Trophy,
+  LogOut,
+  User,
+  BarChart3,
+  Settings,
+  TrendingUp,
+} from 'lucide-react'
 
 export function Header({
   userName,
@@ -46,6 +53,12 @@ export function Header({
               <Button variant="ghost" size="sm">
                 <BarChart3 className="h-4 w-4 sm:mr-2" />
                 <span className="hidden sm:inline">Partidos</span>
+              </Button>
+            </Link>
+            <Link href="/simulacion">
+              <Button variant="ghost" size="sm">
+                <TrendingUp className="h-4 w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Simulacion</span>
               </Button>
             </Link>
             <Link href="/leaderboard">
