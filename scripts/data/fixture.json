@@ -1,0 +1,1042 @@
+[
+  {
+    "matchNumber": 1,
+    "homeTeam": "México",
+    "awayTeam": "Sudáfrica",
+    "homeFlag": "🇲🇽",
+    "awayFlag": "🇿🇦",
+    "matchDate": "2026-06-11T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "A"
+  },
+  {
+    "matchNumber": 2,
+    "homeTeam": "Corea del Sur",
+    "awayTeam": "República Checa",
+    "homeFlag": "🇰🇷",
+    "awayFlag": "🇨🇿",
+    "matchDate": "2026-06-12T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "A"
+  },
+  {
+    "matchNumber": 3,
+    "homeTeam": "Canadá",
+    "awayTeam": "Bosnia y Herzegovina",
+    "homeFlag": "🇨🇦",
+    "awayFlag": "🇧🇦",
+    "matchDate": "2026-06-12T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "B"
+  },
+  {
+    "matchNumber": 4,
+    "homeTeam": "Estados Unidos",
+    "awayTeam": "Paraguay",
+    "homeFlag": "🇺🇸",
+    "awayFlag": "🇵🇾",
+    "matchDate": "2026-06-13T01:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "D"
+  },
+  {
+    "matchNumber": 5,
+    "homeTeam": "Catar",
+    "awayTeam": "Suiza",
+    "homeFlag": "🇶🇦",
+    "awayFlag": "🇨🇭",
+    "matchDate": "2026-06-13T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "B"
+  },
+  {
+    "matchNumber": 6,
+    "homeTeam": "Brasil",
+    "awayTeam": "Marruecos",
+    "homeFlag": "🇧🇷",
+    "awayFlag": "🇲🇦",
+    "matchDate": "2026-06-13T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "C"
+  },
+  {
+    "matchNumber": 7,
+    "homeTeam": "Haití",
+    "awayTeam": "Escocia",
+    "homeFlag": "🇭🇹",
+    "awayFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    "matchDate": "2026-06-14T01:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "C"
+  },
+  {
+    "matchNumber": 8,
+    "homeTeam": "Australia",
+    "awayTeam": "Turquía",
+    "homeFlag": "🇦🇺",
+    "awayFlag": "🇹🇷",
+    "matchDate": "2026-06-14T04:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "D"
+  },
+  {
+    "matchNumber": 9,
+    "homeTeam": "Alemania",
+    "awayTeam": "Curazao",
+    "homeFlag": "🇩🇪",
+    "awayFlag": "🇨🇼",
+    "matchDate": "2026-06-14T17:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "E"
+  },
+  {
+    "matchNumber": 10,
+    "homeTeam": "Países Bajos",
+    "awayTeam": "Japón",
+    "homeFlag": "🇳🇱",
+    "awayFlag": "🇯🇵",
+    "matchDate": "2026-06-14T20:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "F"
+  },
+  {
+    "matchNumber": 11,
+    "homeTeam": "Costa de Marfil",
+    "awayTeam": "Ecuador",
+    "homeFlag": "🇨🇮",
+    "awayFlag": "🇪🇨",
+    "matchDate": "2026-06-14T23:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "E"
+  },
+  {
+    "matchNumber": 12,
+    "homeTeam": "Suecia",
+    "awayTeam": "Túnez",
+    "homeFlag": "🇸🇪",
+    "awayFlag": "🇹🇳",
+    "matchDate": "2026-06-15T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "F"
+  },
+  {
+    "matchNumber": 13,
+    "homeTeam": "España",
+    "awayTeam": "Cabo Verde",
+    "homeFlag": "🇪🇸",
+    "awayFlag": "🇨🇻",
+    "matchDate": "2026-06-15T17:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "H"
+  },
+  {
+    "matchNumber": 14,
+    "homeTeam": "Bélgica",
+    "awayTeam": "Egipto",
+    "homeFlag": "🇧🇪",
+    "awayFlag": "🇪🇬",
+    "matchDate": "2026-06-15T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "G"
+  },
+  {
+    "matchNumber": 15,
+    "homeTeam": "Arabia Saudita",
+    "awayTeam": "Uruguay",
+    "homeFlag": "🇸🇦",
+    "awayFlag": "🇺🇾",
+    "matchDate": "2026-06-15T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "H"
+  },
+  {
+    "matchNumber": 16,
+    "homeTeam": "Irán",
+    "awayTeam": "Nueva Zelanda",
+    "homeFlag": "🇮🇷",
+    "awayFlag": "🇳🇿",
+    "matchDate": "2026-06-16T04:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "G"
+  },
+  {
+    "matchNumber": 17,
+    "homeTeam": "Francia",
+    "awayTeam": "Senegal",
+    "homeFlag": "🇫🇷",
+    "awayFlag": "🇸🇳",
+    "matchDate": "2026-06-16T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "I"
+  },
+  {
+    "matchNumber": 18,
+    "homeTeam": "Irak",
+    "awayTeam": "Noruega",
+    "homeFlag": "🇮🇶",
+    "awayFlag": "🇳🇴",
+    "matchDate": "2026-06-16T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "I"
+  },
+  {
+    "matchNumber": 19,
+    "homeTeam": "Argentina",
+    "awayTeam": "Argelia",
+    "homeFlag": "🇦🇷",
+    "awayFlag": "🇩🇿",
+    "matchDate": "2026-06-17T01:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "J"
+  },
+  {
+    "matchNumber": 20,
+    "homeTeam": "Austria",
+    "awayTeam": "Jordania",
+    "homeFlag": "🇦🇹",
+    "awayFlag": "🇯🇴",
+    "matchDate": "2026-06-17T04:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "J"
+  },
+  {
+    "matchNumber": 21,
+    "homeTeam": "Portugal",
+    "awayTeam": "RD del Congo",
+    "homeFlag": "🇵🇹",
+    "awayFlag": "🇨🇩",
+    "matchDate": "2026-06-17T17:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "K"
+  },
+  {
+    "matchNumber": 22,
+    "homeTeam": "Inglaterra",
+    "awayTeam": "Croacia",
+    "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "awayFlag": "🇭🇷",
+    "matchDate": "2026-06-17T20:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "L"
+  },
+  {
+    "matchNumber": 23,
+    "homeTeam": "Ghana",
+    "awayTeam": "Panamá",
+    "homeFlag": "🇬🇭",
+    "awayFlag": "🇵🇦",
+    "matchDate": "2026-06-17T23:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "L"
+  },
+  {
+    "matchNumber": 24,
+    "homeTeam": "Uzbekistán",
+    "awayTeam": "Colombia",
+    "homeFlag": "🇺🇿",
+    "awayFlag": "🇨🇴",
+    "matchDate": "2026-06-18T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "K"
+  },
+  {
+    "matchNumber": 25,
+    "homeTeam": "República Checa",
+    "awayTeam": "Sudáfrica",
+    "homeFlag": "🇨🇿",
+    "awayFlag": "🇿🇦",
+    "matchDate": "2026-06-18T16:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "A"
+  },
+  {
+    "matchNumber": 26,
+    "homeTeam": "Suiza",
+    "awayTeam": "Bosnia y Herzegovina",
+    "homeFlag": "🇨🇭",
+    "awayFlag": "🇧🇦",
+    "matchDate": "2026-06-18T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "B"
+  },
+  {
+    "matchNumber": 27,
+    "homeTeam": "Canadá",
+    "awayTeam": "Catar",
+    "homeFlag": "🇨🇦",
+    "awayFlag": "🇶🇦",
+    "matchDate": "2026-06-18T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "B"
+  },
+  {
+    "matchNumber": 28,
+    "homeTeam": "México",
+    "awayTeam": "Corea del Sur",
+    "homeFlag": "🇲🇽",
+    "awayFlag": "🇰🇷",
+    "matchDate": "2026-06-19T03:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "A"
+  },
+  {
+    "matchNumber": 29,
+    "homeTeam": "Estados Unidos",
+    "awayTeam": "Australia",
+    "homeFlag": "🇺🇸",
+    "awayFlag": "🇦🇺",
+    "matchDate": "2026-06-19T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "D"
+  },
+  {
+    "matchNumber": 30,
+    "homeTeam": "Escocia",
+    "awayTeam": "Marruecos",
+    "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    "awayFlag": "🇲🇦",
+    "matchDate": "2026-06-19T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "C"
+  },
+  {
+    "matchNumber": 31,
+    "homeTeam": "Brasil",
+    "awayTeam": "Haití",
+    "homeFlag": "🇧🇷",
+    "awayFlag": "🇭🇹",
+    "matchDate": "2026-06-20T01:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "C"
+  },
+  {
+    "matchNumber": 32,
+    "homeTeam": "Turquía",
+    "awayTeam": "Paraguay",
+    "homeFlag": "🇹🇷",
+    "awayFlag": "🇵🇾",
+    "matchDate": "2026-06-20T04:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "D"
+  },
+  {
+    "matchNumber": 33,
+    "homeTeam": "Países Bajos",
+    "awayTeam": "Suecia",
+    "homeFlag": "🇳🇱",
+    "awayFlag": "🇸🇪",
+    "matchDate": "2026-06-20T17:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "F"
+  },
+  {
+    "matchNumber": 34,
+    "homeTeam": "Alemania",
+    "awayTeam": "Costa de Marfil",
+    "homeFlag": "🇩🇪",
+    "awayFlag": "🇨🇮",
+    "matchDate": "2026-06-20T20:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "E"
+  },
+  {
+    "matchNumber": 35,
+    "homeTeam": "Ecuador",
+    "awayTeam": "Curazao",
+    "homeFlag": "🇪🇨",
+    "awayFlag": "🇨🇼",
+    "matchDate": "2026-06-21T00:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "E"
+  },
+  {
+    "matchNumber": 36,
+    "homeTeam": "Túnez",
+    "awayTeam": "Japón",
+    "homeFlag": "🇹🇳",
+    "awayFlag": "🇯🇵",
+    "matchDate": "2026-06-21T04:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "F"
+  },
+  {
+    "matchNumber": 37,
+    "homeTeam": "España",
+    "awayTeam": "Arabia Saudita",
+    "homeFlag": "🇪🇸",
+    "awayFlag": "🇸🇦",
+    "matchDate": "2026-06-21T16:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "H"
+  },
+  {
+    "matchNumber": 38,
+    "homeTeam": "Bélgica",
+    "awayTeam": "Irán",
+    "homeFlag": "🇧🇪",
+    "awayFlag": "🇮🇷",
+    "matchDate": "2026-06-21T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "G"
+  },
+  {
+    "matchNumber": 39,
+    "homeTeam": "Uruguay",
+    "awayTeam": "Cabo Verde",
+    "homeFlag": "🇺🇾",
+    "awayFlag": "🇨🇻",
+    "matchDate": "2026-06-21T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "H"
+  },
+  {
+    "matchNumber": 40,
+    "homeTeam": "Nueva Zelanda",
+    "awayTeam": "Egipto",
+    "homeFlag": "🇳🇿",
+    "awayFlag": "🇪🇬",
+    "matchDate": "2026-06-22T01:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "G"
+  },
+  {
+    "matchNumber": 41,
+    "homeTeam": "Argentina",
+    "awayTeam": "Austria",
+    "homeFlag": "🇦🇷",
+    "awayFlag": "🇦🇹",
+    "matchDate": "2026-06-22T17:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "J"
+  },
+  {
+    "matchNumber": 42,
+    "homeTeam": "Francia",
+    "awayTeam": "Irak",
+    "homeFlag": "🇫🇷",
+    "awayFlag": "🇮🇶",
+    "matchDate": "2026-06-22T21:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "I"
+  },
+  {
+    "matchNumber": 43,
+    "homeTeam": "Noruega",
+    "awayTeam": "Senegal",
+    "homeFlag": "🇳🇴",
+    "awayFlag": "🇸🇳",
+    "matchDate": "2026-06-23T00:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "I"
+  },
+  {
+    "matchNumber": 44,
+    "homeTeam": "Jordania",
+    "awayTeam": "Argelia",
+    "homeFlag": "🇯🇴",
+    "awayFlag": "🇩🇿",
+    "matchDate": "2026-06-23T03:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "J"
+  },
+  {
+    "matchNumber": 45,
+    "homeTeam": "Portugal",
+    "awayTeam": "Uzbekistán",
+    "homeFlag": "🇵🇹",
+    "awayFlag": "🇺🇿",
+    "matchDate": "2026-06-23T17:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "K"
+  },
+  {
+    "matchNumber": 46,
+    "homeTeam": "Inglaterra",
+    "awayTeam": "Ghana",
+    "homeFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "awayFlag": "🇬🇭",
+    "matchDate": "2026-06-23T20:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "L"
+  },
+  {
+    "matchNumber": 47,
+    "homeTeam": "Panamá",
+    "awayTeam": "Croacia",
+    "homeFlag": "🇵🇦",
+    "awayFlag": "🇭🇷",
+    "matchDate": "2026-06-23T23:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "L"
+  },
+  {
+    "matchNumber": 48,
+    "homeTeam": "Colombia",
+    "awayTeam": "RD del Congo",
+    "homeFlag": "🇨🇴",
+    "awayFlag": "🇨🇩",
+    "matchDate": "2026-06-24T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "K"
+  },
+  {
+    "matchNumber": 49,
+    "homeTeam": "Suiza",
+    "awayTeam": "Canadá",
+    "homeFlag": "🇨🇭",
+    "awayFlag": "🇨🇦",
+    "matchDate": "2026-06-24T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "B"
+  },
+  {
+    "matchNumber": 50,
+    "homeTeam": "Bosnia y Herzegovina",
+    "awayTeam": "Catar",
+    "homeFlag": "🇧🇦",
+    "awayFlag": "🇶🇦",
+    "matchDate": "2026-06-24T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "B"
+  },
+  {
+    "matchNumber": 51,
+    "homeTeam": "Escocia",
+    "awayTeam": "Brasil",
+    "homeFlag": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    "awayFlag": "🇧🇷",
+    "matchDate": "2026-06-24T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "C"
+  },
+  {
+    "matchNumber": 52,
+    "homeTeam": "Marruecos",
+    "awayTeam": "Haití",
+    "homeFlag": "🇲🇦",
+    "awayFlag": "🇭🇹",
+    "matchDate": "2026-06-24T22:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "C"
+  },
+  {
+    "matchNumber": 53,
+    "homeTeam": "República Checa",
+    "awayTeam": "México",
+    "homeFlag": "🇨🇿",
+    "awayFlag": "🇲🇽",
+    "matchDate": "2026-06-25T01:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "A"
+  },
+  {
+    "matchNumber": 54,
+    "homeTeam": "Sudáfrica",
+    "awayTeam": "Corea del Sur",
+    "homeFlag": "🇿🇦",
+    "awayFlag": "🇰🇷",
+    "matchDate": "2026-06-25T01:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "A"
+  },
+  {
+    "matchNumber": 55,
+    "homeTeam": "Ecuador",
+    "awayTeam": "Alemania",
+    "homeFlag": "🇪🇨",
+    "awayFlag": "🇩🇪",
+    "matchDate": "2026-06-25T20:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "E"
+  },
+  {
+    "matchNumber": 56,
+    "homeTeam": "Curazao",
+    "awayTeam": "Costa de Marfil",
+    "homeFlag": "🇨🇼",
+    "awayFlag": "🇨🇮",
+    "matchDate": "2026-06-25T20:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "E"
+  },
+  {
+    "matchNumber": 57,
+    "homeTeam": "Japón",
+    "awayTeam": "Suecia",
+    "homeFlag": "🇯🇵",
+    "awayFlag": "🇸🇪",
+    "matchDate": "2026-06-25T23:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "F"
+  },
+  {
+    "matchNumber": 58,
+    "homeTeam": "Túnez",
+    "awayTeam": "Países Bajos",
+    "homeFlag": "🇹🇳",
+    "awayFlag": "🇳🇱",
+    "matchDate": "2026-06-25T23:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "F"
+  },
+  {
+    "matchNumber": 59,
+    "homeTeam": "Turquía",
+    "awayTeam": "Estados Unidos",
+    "homeFlag": "🇹🇷",
+    "awayFlag": "🇺🇸",
+    "matchDate": "2026-06-26T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "D"
+  },
+  {
+    "matchNumber": 60,
+    "homeTeam": "Paraguay",
+    "awayTeam": "Australia",
+    "homeFlag": "🇵🇾",
+    "awayFlag": "🇦🇺",
+    "matchDate": "2026-06-26T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "D"
+  },
+  {
+    "matchNumber": 61,
+    "homeTeam": "Noruega",
+    "awayTeam": "Francia",
+    "homeFlag": "🇳🇴",
+    "awayFlag": "🇫🇷",
+    "matchDate": "2026-06-26T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "I"
+  },
+  {
+    "matchNumber": 62,
+    "homeTeam": "Senegal",
+    "awayTeam": "Irak",
+    "homeFlag": "🇸🇳",
+    "awayFlag": "🇮🇶",
+    "matchDate": "2026-06-26T19:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "I"
+  },
+  {
+    "matchNumber": 63,
+    "homeTeam": "Cabo Verde",
+    "awayTeam": "Arabia Saudita",
+    "homeFlag": "🇨🇻",
+    "awayFlag": "🇸🇦",
+    "matchDate": "2026-06-27T00:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "H"
+  },
+  {
+    "matchNumber": 64,
+    "homeTeam": "Uruguay",
+    "awayTeam": "España",
+    "homeFlag": "🇺🇾",
+    "awayFlag": "🇪🇸",
+    "matchDate": "2026-06-27T00:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "H"
+  },
+  {
+    "matchNumber": 65,
+    "homeTeam": "Egipto",
+    "awayTeam": "Irán",
+    "homeFlag": "🇪🇬",
+    "awayFlag": "🇮🇷",
+    "matchDate": "2026-06-27T03:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "G"
+  },
+  {
+    "matchNumber": 66,
+    "homeTeam": "Nueva Zelanda",
+    "awayTeam": "Bélgica",
+    "homeFlag": "🇳🇿",
+    "awayFlag": "🇧🇪",
+    "matchDate": "2026-06-27T03:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "G"
+  },
+  {
+    "matchNumber": 67,
+    "homeTeam": "Panamá",
+    "awayTeam": "Inglaterra",
+    "homeFlag": "🇵🇦",
+    "awayFlag": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "matchDate": "2026-06-27T21:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "L"
+  },
+  {
+    "matchNumber": 68,
+    "homeTeam": "Croacia",
+    "awayTeam": "Ghana",
+    "homeFlag": "🇭🇷",
+    "awayFlag": "🇬🇭",
+    "matchDate": "2026-06-27T21:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "L"
+  },
+  {
+    "matchNumber": 69,
+    "homeTeam": "Colombia",
+    "awayTeam": "Portugal",
+    "homeFlag": "🇨🇴",
+    "awayFlag": "🇵🇹",
+    "matchDate": "2026-06-27T23:30:00Z",
+    "stage": "Fase de Grupos",
+    "group": "K"
+  },
+  {
+    "matchNumber": 70,
+    "homeTeam": "RD del Congo",
+    "awayTeam": "Uzbekistán",
+    "homeFlag": "🇨🇩",
+    "awayFlag": "🇺🇿",
+    "matchDate": "2026-06-27T23:30:00Z",
+    "stage": "Fase de Grupos",
+    "group": "K"
+  },
+  {
+    "matchNumber": 71,
+    "homeTeam": "Argelia",
+    "awayTeam": "Austria",
+    "homeFlag": "🇩🇿",
+    "awayFlag": "🇦🇹",
+    "matchDate": "2026-06-28T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "J"
+  },
+  {
+    "matchNumber": 72,
+    "homeTeam": "Jordania",
+    "awayTeam": "Argentina",
+    "homeFlag": "🇯🇴",
+    "awayFlag": "🇦🇷",
+    "matchDate": "2026-06-28T02:00:00Z",
+    "stage": "Fase de Grupos",
+    "group": "J"
+  },
+  {
+    "matchNumber": 73,
+    "homeTeam": "2° Grupo A",
+    "awayTeam": "2° Grupo B",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-06-28T19:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 74,
+    "homeTeam": "1° Grupo E",
+    "awayTeam": "3° Grupo A/B/C/D/F",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-06-29T20:30:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 75,
+    "homeTeam": "1° Grupo F",
+    "awayTeam": "2° Grupo C",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-06-30T01:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 76,
+    "homeTeam": "1° Grupo C",
+    "awayTeam": "2° Grupo F",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-06-29T17:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 77,
+    "homeTeam": "1° Grupo I",
+    "awayTeam": "3° Grupo C/D/F/G/H",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-06-30T21:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 78,
+    "homeTeam": "2° Grupo E",
+    "awayTeam": "2° Grupo I",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-06-30T17:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 79,
+    "homeTeam": "1° Grupo A",
+    "awayTeam": "3° Grupo C/E/F/H/I",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-01T01:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 80,
+    "homeTeam": "1° Grupo L",
+    "awayTeam": "3° Grupo E/H/I/J/K",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-01T16:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 81,
+    "homeTeam": "1° Grupo D",
+    "awayTeam": "3° Grupo B/E/F/I/J",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-02T00:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 82,
+    "homeTeam": "1° Grupo G",
+    "awayTeam": "3° Grupo A/E/H/I/J",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-01T20:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 83,
+    "homeTeam": "2° Grupo K",
+    "awayTeam": "2° Grupo L",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-02T23:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 84,
+    "homeTeam": "1° Grupo H",
+    "awayTeam": "2° Grupo J",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-02T19:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 85,
+    "homeTeam": "1° Grupo B",
+    "awayTeam": "3° Grupo E/F/G/I/J",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-03T03:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 86,
+    "homeTeam": "1° Grupo J",
+    "awayTeam": "2° Grupo H",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-03T22:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 87,
+    "homeTeam": "1° Grupo K",
+    "awayTeam": "3° Grupo D/E/I/J/L",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-04T01:30:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 88,
+    "homeTeam": "2° Grupo D",
+    "awayTeam": "2° Grupo G",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-03T18:00:00Z",
+    "stage": "Dieciseisavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 89,
+    "homeTeam": "Ganador Partido 74",
+    "awayTeam": "Ganador Partido 77",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-04T21:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 90,
+    "homeTeam": "Ganador Partido 73",
+    "awayTeam": "Ganador Partido 75",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-04T17:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 91,
+    "homeTeam": "Ganador Partido 76",
+    "awayTeam": "Ganador Partido 78",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-05T20:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 92,
+    "homeTeam": "Ganador Partido 79",
+    "awayTeam": "Ganador Partido 80",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-06T00:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 93,
+    "homeTeam": "Ganador Partido 83",
+    "awayTeam": "Ganador Partido 84",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-06T19:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 94,
+    "homeTeam": "Ganador Partido 81",
+    "awayTeam": "Ganador Partido 82",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-07T00:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 95,
+    "homeTeam": "Ganador Partido 86",
+    "awayTeam": "Ganador Partido 88",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-07T16:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 96,
+    "homeTeam": "Ganador Partido 85",
+    "awayTeam": "Ganador Partido 87",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-07T20:00:00Z",
+    "stage": "Octavos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 97,
+    "homeTeam": "Ganador Partido 89",
+    "awayTeam": "Ganador Partido 90",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-09T20:00:00Z",
+    "stage": "Cuartos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 98,
+    "homeTeam": "Ganador Partido 93",
+    "awayTeam": "Ganador Partido 94",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-10T19:00:00Z",
+    "stage": "Cuartos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 99,
+    "homeTeam": "Ganador Partido 91",
+    "awayTeam": "Ganador Partido 92",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-11T21:00:00Z",
+    "stage": "Cuartos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 100,
+    "homeTeam": "Ganador Partido 95",
+    "awayTeam": "Ganador Partido 96",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-12T01:00:00Z",
+    "stage": "Cuartos de Final",
+    "group": null
+  },
+  {
+    "matchNumber": 101,
+    "homeTeam": "Ganador Partido 97",
+    "awayTeam": "Ganador Partido 98",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-14T19:00:00Z",
+    "stage": "Semifinal",
+    "group": null
+  },
+  {
+    "matchNumber": 102,
+    "homeTeam": "Ganador Partido 99",
+    "awayTeam": "Ganador Partido 100",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-15T19:00:00Z",
+    "stage": "Semifinal",
+    "group": null
+  },
+  {
+    "matchNumber": 103,
+    "homeTeam": "Perdedor Partido 101",
+    "awayTeam": "Perdedor Partido 102",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-18T21:00:00Z",
+    "stage": "Tercer Puesto",
+    "group": null
+  },
+  {
+    "matchNumber": 104,
+    "homeTeam": "Ganador Partido 101",
+    "awayTeam": "Ganador Partido 102",
+    "homeFlag": null,
+    "awayFlag": null,
+    "matchDate": "2026-07-19T19:00:00Z",
+    "stage": "Final",
+    "group": null
+  }
+]
