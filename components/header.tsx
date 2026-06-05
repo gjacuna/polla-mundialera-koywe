@@ -25,10 +25,11 @@ export function Header({
     <header className="border-b bg-card">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <Trophy className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-lg font-bold text-foreground">Polla Koywe</span>
+          <img src="/icon.svg" alt="Koywe" className="h-9 w-9 rounded-lg" />
+          <span className="text-lg font-bold text-foreground">
+            Prediction Markets
+          </span>
+          <img src="/koywe-logo.svg" alt="Koywe" className="mt-1 h-5" />
         </Link>
 
         {userName ? (

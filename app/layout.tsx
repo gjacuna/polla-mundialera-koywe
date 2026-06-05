@@ -10,8 +10,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Polla Koywe - Mundial 2026',
-  description: 'Plataforma de predicciones para el Mundial 2026 de Koywe',
+  title: 'Prediction Markets Koywe - Mundial 2026',
+  description: 'El mercado de predicciones del Mundial 2026 de Koywe',
   generator: 'v0.app',
   icons: {
     icon: [
