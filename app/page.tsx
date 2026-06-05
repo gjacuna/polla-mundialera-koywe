@@ -9,7 +9,7 @@ import {
   getPredictionStats,
 } from '@/app/actions/predictions'
 import { Header } from '@/components/header'
-import { MatchCard } from '@/components/match-card'
+import { MatchesView } from '@/components/matches-view'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Trophy, Target, Award } from 'lucide-react'
 
@@ -26,8 +26,6 @@ export default async function HomePage() {
     getUserStats(),
     getPredictionStats(),
   ])
-
-  const predictionMap = new Map(predictions.map((p) => [p.matchId, p]))
 
   return (
     <div className="min-h-screen bg-background">
@@ -69,27 +67,19 @@ export default async function HomePage() {
         </div>
 
         {/* Matches */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold">Partidos del Mundial 2026</h2>
-          {matches.length === 0 ? (
-            <Card>
-              <CardContent className="py-8 text-center text-muted-foreground">
-                Aun no hay partidos programados. El administrador debe agregar los partidos.
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {matches.map((match) => (
-                <MatchCard
-                  key={match.id}
-                  match={match}
-                  prediction={predictionMap.get(match.id) || null}
-                  stats={predictionStats[match.id] || null}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+        {matches.length === 0 ? (
+          <Card>
+            <CardContent className="py-8 text-center text-muted-foreground">
+              Aun no hay partidos programados. El administrador debe agregar los partidos.
+            </CardContent>
+          </Card>
+        ) : (
+          <MatchesView
+            matches={matches}
+            predictions={predictions}
+            stats={predictionStats}
+          />
+        )}
       </main>
     </div>
   )

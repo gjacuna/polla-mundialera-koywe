@@ -24,41 +24,51 @@ export function Header({
   return (
     <header className="border-b bg-card">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/icon.svg" alt="Koywe" className="h-9 w-9 rounded-lg" />
-          <span className="text-lg font-bold text-foreground">
+        <Link href="/" className="flex min-w-0 items-center gap-2">
+          <img
+            src="/icon.svg"
+            alt="Koywe"
+            className="h-9 w-9 shrink-0 rounded-lg"
+          />
+          <span className="hidden whitespace-nowrap text-lg font-bold text-foreground min-[480px]:inline">
             Prediction Markets
           </span>
-          <img src="/koywe-logo.svg" alt="Koywe" className="mt-1 h-5" />
+          <img
+            src="/koywe-logo.svg"
+            alt="Koywe"
+            className="mt-1 hidden h-5 md:block"
+          />
         </Link>
 
         {userName ? (
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-0.5 sm:gap-1">
             <Link href="/">
               <Button variant="ghost" size="sm">
-                <BarChart3 className="mr-2 h-4 w-4" />
-                Partidos
+                <BarChart3 className="h-4 w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Partidos</span>
               </Button>
             </Link>
             <Link href="/leaderboard">
               <Button variant="ghost" size="sm">
-                <Trophy className="mr-2 h-4 w-4" />
-                Ranking
+                <Trophy className="h-4 w-4 sm:mr-2" />
+                <span className="hidden sm:inline">Ranking</span>
               </Button>
             </Link>
             {isAdmin && (
               <Link href="/admin">
                 <Button variant="ghost" size="sm">
-                  <Settings className="mr-2 h-4 w-4" />
-                  Admin
+                  <Settings className="h-4 w-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Admin</span>
                 </Button>
               </Link>
             )}
-            <div className="ml-2 flex items-center gap-2 border-l pl-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary">
+            <div className="ml-1 flex items-center gap-1 border-l pl-2 sm:ml-2 sm:gap-2 sm:pl-4">
+              <div className="hidden h-8 w-8 items-center justify-center rounded-full bg-secondary sm:flex">
                 <User className="h-4 w-4 text-secondary-foreground" />
               </div>
-              <span className="text-sm font-medium">{userName}</span>
+              <span className="hidden text-sm font-medium md:inline">
+                {userName}
+              </span>
               <Button variant="ghost" size="icon" onClick={handleSignOut}>
                 <LogOut className="h-4 w-4" />
               </Button>
