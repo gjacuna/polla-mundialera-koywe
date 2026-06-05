@@ -15,4 +15,6 @@ node_modules
 .DS_Store
 
 # gstack QA artifacts
-.gstack/*.tsbuildinfo
+.gstack/
+
+*.tsbuildinfo
