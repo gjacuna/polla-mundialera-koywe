@@ -34,12 +34,55 @@ type Prediction = {
   points: number | null
 }
 
+type MatchStats = {
+  home: number
+  draw: number
+  away: number
+  total: number
+}
+
+function MarketBar({ match, stats }: { match: Match; stats: MatchStats }) {
+  const pct = (n: number) => Math.round((n / stats.total) * 100)
+  const segments = [
+    { label: match.homeTeam, value: stats.home, color: 'bg-primary' },
+    { label: 'Empate', value: stats.draw, color: 'bg-muted-foreground/40' },
+    { label: match.awayTeam, value: stats.away, color: 'bg-secondary' },
+  ].filter((s) => s.value > 0)
+
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between text-xs text-muted-foreground">
+        <span>El mercado dice</span>
+        <span>
+          {stats.total} {stats.total === 1 ? 'prediccion' : 'predicciones'}
+        </span>
+      </div>
+      <div className="flex h-2 w-full overflow-hidden rounded-full bg-muted">
+        {segments.map((s) => (
+          <div
+            key={s.label}
+            className={s.color}
+            style={{ width: `${(s.value / stats.total) * 100}%` }}
+          />
+        ))}
+      </div>
+      <div className="flex flex-wrap justify-between gap-x-3 text-xs text-muted-foreground">
+        <span>{pct(stats.home)}% {match.homeTeam}</span>
+        <span>{pct(stats.draw)}% Empate</span>
+        <span>{pct(stats.away)}% {match.awayTeam}</span>
+      </div>
+    </div>
+  )
+}
+
 export function MatchCard({
   match,
   prediction,
+  stats,
 }: {
   match: Match
   prediction: Prediction | null
+  stats?: MatchStats | null
 }) {
   const [selectedWinner, setSelectedWinner] = useState<string>(
     prediction?.predictedWinner || ''
@@ -258,6 +301,9 @@ export function MatchCard({
             No hiciste prediccion para este partido
           </div>
         )}
+
+        {/* Market sentiment */}
+        {stats && stats.total > 0 && <MarketBar match={match} stats={stats} />}
       </CardContent>
     </Card>
   )

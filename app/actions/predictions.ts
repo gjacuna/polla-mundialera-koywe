@@ -115,6 +115,36 @@ export async function savePrediction(
   return { ok: true }
 }
 
+export type MatchPredictionStats = {
+  home: number
+  draw: number
+  away: number
+  total: number
+}
+
+export async function getPredictionStats(): Promise<
+  Record<number, MatchPredictionStats>
+> {
+  const result = await db.execute(sql`
+    SELECT "matchId", "predictedWinner", count(*)::int AS count
+    FROM predictions
+    GROUP BY "matchId", "predictedWinner"
+  `)
+  const stats: Record<number, MatchPredictionStats> = {}
+  for (const row of result.rows as {
+    matchId: number
+    predictedWinner: string
+    count: number
+  }[]) {
+    const entry = (stats[row.matchId] ??= { home: 0, draw: 0, away: 0, total: 0 })
+    if (row.predictedWinner === 'home') entry.home = row.count
+    else if (row.predictedWinner === 'draw') entry.draw = row.count
+    else if (row.predictedWinner === 'away') entry.away = row.count
+    entry.total += row.count
+  }
+  return stats
+}
+
 export async function getLeaderboard() {
   const result = await db.execute(sql`
     SELECT 

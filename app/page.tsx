@@ -2,7 +2,12 @@ import { auth } from '@/lib/auth'
 import { isAdminEmail } from '@/lib/admin'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { getMatches, getUserPredictions, getUserStats } from '@/app/actions/predictions'
+import {
+  getMatches,
+  getUserPredictions,
+  getUserStats,
+  getPredictionStats,
+} from '@/app/actions/predictions'
 import { Header } from '@/components/header'
 import { MatchCard } from '@/components/match-card'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,10 +20,11 @@ export default async function HomePage() {
     redirect('/sign-in')
   }
 
-  const [matches, predictions, stats] = await Promise.all([
+  const [matches, predictions, stats, predictionStats] = await Promise.all([
     getMatches(),
     getUserPredictions(),
     getUserStats(),
+    getPredictionStats(),
   ])
 
   const predictionMap = new Map(predictions.map((p) => [p.matchId, p]))
@@ -78,6 +84,7 @@ export default async function HomePage() {
                   key={match.id}
                   match={match}
                   prediction={predictionMap.get(match.id) || null}
+                  stats={predictionStats[match.id] || null}
                 />
               ))}
             </div>
