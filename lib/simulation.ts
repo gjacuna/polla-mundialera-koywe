@@ -1,6 +1,13 @@
-// Pure helpers to simulate the tournament from a user's predictions.
-// Group standings use the predicted winner for points (3/1/0); goals and
-// goal difference only accumulate when the user predicted an exact score.
+// Pure helpers to simulate the tournament from real results and a user's
+// predictions. Group standings use the winner for points (3/1/0); goals and
+// goal difference accumulate from real scores when a match is finished, or
+// from the user's exact-score prediction otherwise.
+//
+// Two modes:
+//   'actual'      -> real results where a match is finished, predictions ahead
+//   'predictions' -> the user's predictions only (ignores real results)
+
+export type SimMode = 'actual' | 'predictions'
 
 type SimMatch = {
   id: number
@@ -11,6 +18,9 @@ type SimMatch = {
   matchDate: Date
   stage: string
   group: string | null
+  homeScore: number | null
+  awayScore: number | null
+  status: string
 }
 
 type SimPrediction = {
@@ -33,7 +43,10 @@ export type Standing = {
 export type GroupSim = {
   group: string
   standings: Standing[]
-  predicted: number
+  // matches with a known outcome in this mode (finished and/or predicted)
+  decided: number
+  // matches already played for real (only counted in 'actual' mode)
+  finished: number
   total: number
 }
 
@@ -109,20 +122,68 @@ function compareStandings(a: Standing, b: Standing) {
   )
 }
 
+type Outcome = {
+  winner: 'home' | 'draw' | 'away'
+  homeGoals: number | null
+  awayGoals: number | null
+  fromResult: boolean
+}
+
+// Resolve a match to a single outcome for the chosen mode. Returns null when
+// the match has no known outcome yet (no real result and no prediction).
+function matchOutcome(
+  m: SimMatch,
+  pred: SimPrediction | undefined,
+  mode: SimMode
+): Outcome | null {
+  if (
+    mode === 'actual' &&
+    m.status === 'finished' &&
+    m.homeScore != null &&
+    m.awayScore != null
+  ) {
+    const winner =
+      m.homeScore > m.awayScore
+        ? 'home'
+        : m.homeScore < m.awayScore
+          ? 'away'
+          : 'draw'
+    return {
+      winner,
+      homeGoals: m.homeScore,
+      awayGoals: m.awayScore,
+      fromResult: true,
+    }
+  }
+  if (pred) {
+    return {
+      winner: pred.predictedWinner as 'home' | 'draw' | 'away',
+      homeGoals: pred.predictedHomeScore,
+      awayGoals: pred.predictedAwayScore,
+      fromResult: false,
+    }
+  }
+  return null
+}
+
 export function simulateGroups(
   matches: SimMatch[],
-  predictions: SimPrediction[]
+  predictions: SimPrediction[],
+  mode: SimMode = 'predictions'
 ): GroupSim[] {
   const predMap = new Map(predictions.map((p) => [p.matchId, p]))
   const groups = new Map<string, Map<string, Standing>>()
-  const counts = new Map<string, { predicted: number; total: number }>()
+  const counts = new Map<
+    string,
+    { decided: number; finished: number; total: number }
+  >()
 
   for (const m of matches) {
     if (m.stage !== 'Fase de Grupos' || !m.group) continue
 
     const table = groups.get(m.group) ?? new Map<string, Standing>()
     groups.set(m.group, table)
-    const count = counts.get(m.group) ?? { predicted: 0, total: 0 }
+    const count = counts.get(m.group) ?? { decided: 0, finished: 0, total: 0 }
     counts.set(m.group, count)
     count.total++
 
@@ -143,27 +204,28 @@ export function simulateGroups(
       }
     }
 
-    const p = predMap.get(m.id)
-    if (!p) continue
-    count.predicted++
+    const outcome = matchOutcome(m, predMap.get(m.id), mode)
+    if (!outcome) continue
+    count.decided++
+    if (outcome.fromResult) count.finished++
 
     const homeRow = table.get(m.homeTeam)!
     const awayRow = table.get(m.awayTeam)!
     homeRow.played++
     awayRow.played++
 
-    if (p.predictedWinner === 'home') homeRow.points += 3
-    else if (p.predictedWinner === 'away') awayRow.points += 3
+    if (outcome.winner === 'home') homeRow.points += 3
+    else if (outcome.winner === 'away') awayRow.points += 3
     else {
       homeRow.points += 1
       awayRow.points += 1
     }
 
-    if (p.predictedHomeScore != null && p.predictedAwayScore != null) {
-      homeRow.goalsFor += p.predictedHomeScore
-      homeRow.goalsAgainst += p.predictedAwayScore
-      awayRow.goalsFor += p.predictedAwayScore
-      awayRow.goalsAgainst += p.predictedHomeScore
+    if (outcome.homeGoals != null && outcome.awayGoals != null) {
+      homeRow.goalsFor += outcome.homeGoals
+      homeRow.goalsAgainst += outcome.awayGoals
+      awayRow.goalsFor += outcome.awayGoals
+      awayRow.goalsAgainst += outcome.homeGoals
       homeRow.diff = homeRow.goalsFor - homeRow.goalsAgainst
       awayRow.diff = awayRow.goalsFor - awayRow.goalsAgainst
     }
@@ -174,7 +236,8 @@ export function simulateGroups(
     .map(([group, table]) => ({
       group,
       standings: [...table.values()].sort(compareStandings),
-      predicted: counts.get(group)?.predicted ?? 0,
+      decided: counts.get(group)?.decided ?? 0,
+      finished: counts.get(group)?.finished ?? 0,
       total: counts.get(group)?.total ?? 0,
     }))
 }
@@ -204,16 +267,16 @@ export function simulateRound32(
 ): Round32Match[] {
   const byGroup = new Map(groupSims.map((g) => [g.group, g]))
 
-  // A group's order is only trustworthy once every match has a pick
+  // A group's order is only trustworthy once every match has an outcome
   const placeOf = (group: string, index: number): Standing | null => {
     const sim = byGroup.get(group)
-    if (!sim || sim.predicted < sim.total) return null
+    if (!sim || sim.decided < sim.total) return null
     return sim.standings[index] ?? null
   }
 
-  // best 8 third-placed teams (only from fully predicted groups)
+  // best 8 third-placed teams (only from fully decided groups)
   const thirds = groupSims
-    .filter((g) => g.predicted === g.total && g.standings[2])
+    .filter((g) => g.decided === g.total && g.standings[2])
     .map((g) => ({ group: g.group, row: g.standings[2] }))
     .sort((a, b) => compareStandings(a.row, b.row))
     .slice(0, 8)
