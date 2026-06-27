@@ -1,14 +1,15 @@
-// Cron endpoint: keep our matches in sync with API-Football. Each run it:
-//   1. auto-maps externalId for any match with real teams that isn't mapped yet
-//      (by team name + kickoff day), so no manual mapping step is ever needed;
-//   2. applies finished results for mapped matches, re-scoring predictions and
-//      resolving the knockout bracket (which opens predictions for next round).
+// Cron endpoint: keep our matches in sync with the results feed (TheSportsDB).
+// Each run it:
+//   1. finds matches that should have a result by now (kicked off, still
+//      scheduled, real teams — not placeholders);
+//   2. fetches the feed for exactly those days and matches by team name + day;
+//   3. applies finished results, re-scoring predictions and resolving the
+//      knockout bracket — which fills the next round's teams and opens their
+//      predictions. The next run then picks up that round, converging up to
+//      the final. Fully hands-off; no manual mapping step.
 //
-// As group results resolve round-of-32 teams, the next run maps + applies that
-// round, and so on up to the final — fully hands-off.
-//
-// Trigger from Upstash QStash (scheduled HTTP POST) or Vercel Cron. Both can
-// send `Authorization: Bearer <CRON_SECRET>`, which is what we check.
+// Trigger from Upstash QStash (scheduled POST) or Vercel Cron. Both can send
+// `Authorization: Bearer <CRON_SECRET>`, which is what we check.
 //
 //   GET  /api/cron/sync-results?dry=1   -> preview without writing
 //   POST /api/cron/sync-results         -> apply
@@ -16,8 +17,8 @@
 import { db } from '@/lib/db'
 import { matches } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
-import { fetchFixtures, type Fixture } from '@/lib/api-football'
-import { normalizeTeam, sameDay } from '@/lib/team-names'
+import { fetchFixturesForDays, type Fixture } from '@/lib/feed'
+import { normalizeTeam } from '@/lib/team-names'
 import { hasPlaceholderTeams } from '@/lib/match-utils'
 import { applyMatchResult } from '@/lib/match-results'
 import { resolveBracket } from '@/lib/bracket'
@@ -32,54 +33,75 @@ function authorized(req: Request): boolean {
   return req.headers.get('authorization') === `Bearer ${secret}`
 }
 
+// Our seed's kickoff dates can drift a day from the real schedule, so we match
+// on the (unique) team pairing across all fetched fixtures and use date only as
+// a tiebreaker for the rare case a pairing repeats (e.g. a knockout rematch).
 function findFixture(
   match: { homeTeam: string; awayTeam: string; matchDate: Date },
   fixtures: Fixture[]
 ): Fixture | undefined {
   const h = normalizeTeam(match.homeTeam)
   const a = normalizeTeam(match.awayTeam)
-  return fixtures.find((f) => {
-    if (!sameDay(f.date, match.matchDate)) return false
+  const candidates = fixtures.filter((f) => {
     const fh = normalizeTeam(f.homeName)
     const fa = normalizeTeam(f.awayName)
     return (fh === h && fa === a) || (fh === a && fa === h)
   })
+  if (candidates.length <= 1) return candidates[0]
+  const t = match.matchDate.getTime()
+  return candidates.sort(
+    (x, y) =>
+      Math.abs(new Date(x.date).getTime() - t) - Math.abs(new Date(y.date).getTime() - t)
+  )[0]
+}
+
+// Days to fetch: each pending match's day plus the adjacent days, to absorb
+// seed-vs-feed date drift.
+function daysAround(dates: Date[]): string[] {
+  const out = new Set<string>()
+  for (const d of dates) {
+    const base = new Date(d)
+    for (const delta of [-1, 0, 1]) {
+      const x = new Date(base)
+      x.setUTCDate(x.getUTCDate() + delta)
+      out.add(x.toISOString().slice(0, 10))
+    }
+  }
+  return [...out]
 }
 
 async function sync(dry: boolean) {
-  const fixtures = await fetchFixtures()
-  const byId = new Map(fixtures.map((f) => [f.fixtureId, f]))
-
+  const now = Date.now()
   const all = await db.select().from(matches)
 
-  // 1) Auto-map externalId for matches whose teams are known (not placeholders).
-  const mapped: Array<{ id: number; externalId: number }> = []
+  // Matches that should have a result by now: kicked off, still scheduled, and
+  // with real teams (placeholders resolve via the bracket as earlier rounds
+  // finish, then get picked up on a later run).
+  const pending = all.filter(
+    (m) =>
+      m.status === 'scheduled' &&
+      !hasPlaceholderTeams(m) &&
+      new Date(m.matchDate).getTime() <= now
+  )
+
+  if (pending.length === 0) {
+    return { dry, days: 0, failedDays: 0, feed: 0, applied: [], errors: [], unmatched: [] }
+  }
+
+  const days = daysAround(pending.map((m) => new Date(m.matchDate)))
+  const { fixtures, failedDays } = await fetchFixturesForDays(days)
+
+  const applied: Array<{ id: number; score: string }> = []
+  const errors: Array<{ id: number; error: string }> = []
   const unmatched: Array<{ id: number; teams: string }> = []
-  for (const m of all) {
-    if (m.externalId != null) continue
-    if (hasPlaceholderTeams(m)) continue
+
+  for (const m of pending) {
     const fx = findFixture(m, fixtures)
     if (!fx) {
       unmatched.push({ id: m.id, teams: `${m.homeTeam} vs ${m.awayTeam}` })
       continue
     }
-    mapped.push({ id: m.id, externalId: fx.fixtureId })
-    m.externalId = fx.fixtureId // reflect locally so step 2 can use it this run
-    if (!dry) {
-      await db
-        .update(matches)
-        .set({ externalId: fx.fixtureId })
-        .where(eq(matches.id, m.id))
-    }
-  }
-
-  // 2) Apply finished results for mapped, still-scheduled matches.
-  const applied: Array<{ id: number; score: string }> = []
-  const errors: Array<{ id: number; error: string }> = []
-  for (const m of all) {
-    if (m.externalId == null || m.status !== 'scheduled') continue
-    const fx = byId.get(m.externalId)
-    if (!fx || !fx.finished || fx.homeScore == null || fx.awayScore == null) continue
+    if (!fx.finished || fx.homeScore == null || fx.awayScore == null) continue // kicked off, not final yet
     const score = `${fx.homeScore}-${fx.awayScore}${
       fx.homePenalties != null ? ` (pen ${fx.homePenalties}-${fx.awayPenalties})` : ''
     }`
@@ -89,6 +111,9 @@ async function sync(dry: boolean) {
     }
     try {
       await applyMatchResult(m.id, fx.homeScore, fx.awayScore, fx.homePenalties, fx.awayPenalties)
+      if (m.externalId == null) {
+        await db.update(matches).set({ externalId: fx.fixtureId }).where(eq(matches.id, m.id))
+      }
       applied.push({ id: m.id, score })
     } catch (e) {
       errors.push({ id: m.id, error: e instanceof Error ? e.message : String(e) })
@@ -99,11 +124,12 @@ async function sync(dry: boolean) {
 
   return {
     dry,
+    days: days.length,
+    failedDays, // days skipped due to feed errors / rate limiting
     feed: fixtures.length,
-    mapped,
     applied,
     errors,
-    unmatched, // matches with real teams we couldn't name-match — extend ALIASES in lib/team-names.ts
+    unmatched, // real-team matches the feed didn't name-match — extend ALIASES in lib/team-names.ts
   }
 }
 
