@@ -69,9 +69,15 @@ export const matches = pgTable('matches', {
   matchDate: timestamp('matchDate').notNull(),
   homeScore: integer('homeScore'),
   awayScore: integer('awayScore'),
+  // Penalty shootout scores, only set for knockout matches decided on penalties.
+  homePenalties: integer('homePenalties'),
+  awayPenalties: integer('awayPenalties'),
   stage: text('stage').notNull().default('Fase de Grupos'),
   group: text('group'),
   status: text('status').notNull().default('scheduled'),
+  // Fixture id from the external results feed (API-Football), used by the
+  // cron sync endpoint to map our matches to live results.
+  externalId: integer('externalId').unique(),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
 })
 

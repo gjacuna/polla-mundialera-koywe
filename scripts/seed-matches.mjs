@@ -53,9 +53,9 @@ try {
     }
     for (const m of fixture) {
       await client.query(
-        `INSERT INTO matches ("homeTeam", "awayTeam", "homeFlag", "awayFlag", "matchDate", "stage", "group", "status")
-         VALUES ($1, $2, $3, $4, $5, $6, $7, 'scheduled')`,
-        [m.homeTeam, m.awayTeam, m.homeFlag, m.awayFlag, m.matchDate, m.stage, m.group]
+        `INSERT INTO matches ("homeTeam", "awayTeam", "homeFlag", "awayFlag", "matchDate", "stage", "group", "status", "externalId")
+         VALUES ($1, $2, $3, $4, $5, $6, $7, 'scheduled', $8)`,
+        [m.homeTeam, m.awayTeam, m.homeFlag, m.awayFlag, m.matchDate, m.stage, m.group, m.externalId ?? null]
       )
     }
     await client.query('COMMIT')
