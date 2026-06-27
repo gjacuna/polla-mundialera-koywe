@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth'
 import { requireAdmin } from '@/lib/admin'
 import { hasPlaceholderTeams, isPlaceholderTeam } from '@/lib/match-utils'
 import { applyMatchResult } from '@/lib/match-results'
+import { resolveBracket } from '@/lib/bracket'
 import { db } from '@/lib/db'
 import { matches, predictions } from '@/lib/db/schema'
 import { and, desc, eq, sql, asc } from 'drizzle-orm'
@@ -213,6 +214,20 @@ export async function updateMatchResult(
   revalidatePath('/leaderboard')
   revalidatePath('/simulacion')
   revalidatePath('/admin')
+}
+
+// Admin: resolve knockout teams from results already in the DB. Idempotent.
+// Useful as a one-shot when group results were entered before bracket
+// resolution existed (so they never triggered it), or any time you want to
+// re-fill knockout slots from the current standings. Returns how many matches
+// had their teams filled in.
+export async function resolveBracketNow(): Promise<{ resolved: number }> {
+  await requireAdmin()
+  const ids = await resolveBracket()
+  revalidatePath('/')
+  revalidatePath('/simulacion')
+  revalidatePath('/admin')
+  return { resolved: ids.length }
 }
 
 // Admin: manually set/override the teams of a match. Used to fill knockout
