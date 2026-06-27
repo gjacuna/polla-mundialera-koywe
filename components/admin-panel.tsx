@@ -5,6 +5,7 @@ import {
   createMatch,
   updateMatchResult,
   updateMatchTeams,
+  resolveBracketNow,
 } from '@/app/actions/predictions'
 import { isEliminationStage } from '@/lib/scoring'
 import { hasPlaceholderTeams } from '@/lib/match-utils'
@@ -35,6 +36,24 @@ type Match = {
 export function AdminPanel({ matches }: { matches: Match[] }) {
   const [showAddForm, setShowAddForm] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [resolving, setResolving] = useState(false)
+  const [resolveMsg, setResolveMsg] = useState<string | null>(null)
+
+  const handleResolveBracket = async () => {
+    setResolving(true)
+    setResolveMsg(null)
+    try {
+      const { resolved } = await resolveBracketNow()
+      setResolveMsg(
+        resolved > 0
+          ? `Se definieron equipos en ${resolved} partido(s).`
+          : 'No hay nuevos cruces por definir (faltan resultados de grupos).'
+      )
+    } catch {
+      setResolveMsg('Error al resolver las llaves.')
+    }
+    setResolving(false)
+  }
 
   const handleAddMatch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -78,6 +97,28 @@ export function AdminPanel({ matches }: { matches: Match[] }) {
 
   return (
     <div className="space-y-6">
+      {/* Resolve knockout bracket from current results */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between gap-4">
+          <div>
+            <CardTitle>Resolver Llaves</CardTitle>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Define los equipos de eliminatorias a partir de los resultados ya
+              cargados. Úsalo si terminaste una fase y los cruces siguen sin
+              equipos.
+            </p>
+          </div>
+          <Button onClick={handleResolveBracket} disabled={resolving}>
+            {resolving ? 'Resolviendo...' : 'Resolver Llaves'}
+          </Button>
+        </CardHeader>
+        {resolveMsg && (
+          <CardContent>
+            <p className="text-sm">{resolveMsg}</p>
+          </CardContent>
+        )}
+      </Card>
+
       {/* Add Match Section */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
