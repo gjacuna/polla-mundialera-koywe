@@ -51,8 +51,20 @@ async function getFixtures(): Promise<RawFixture[]> {
     throw new Error(`API-Football ${res.status}: ${await res.text()}`)
   }
   const body = (await res.json()) as { response?: RawFixture[]; errors?: unknown }
+  // API-Football returns HTTP 200 with an `errors` object for auth/plan/param
+  // problems (invalid key, plan limit, wrong league/season), alongside an empty
+  // `response`. Surface those instead of silently treating it as "no fixtures".
+  const errs = body.errors
+  const hasErrors =
+    (Array.isArray(errs) && errs.length > 0) ||
+    (errs && typeof errs === 'object' && Object.keys(errs).length > 0)
+  if (hasErrors) {
+    throw new Error(
+      `API-Football error (league=${league}, season=${season}): ${JSON.stringify(errs)}`
+    )
+  }
   if (!Array.isArray(body.response)) {
-    throw new Error(`API-Football unexpected payload: ${JSON.stringify(body.errors ?? body)}`)
+    throw new Error(`API-Football unexpected payload: ${JSON.stringify(body)}`)
   }
   return body.response
 }
