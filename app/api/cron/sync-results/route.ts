@@ -84,16 +84,18 @@ async function sync(dry: boolean) {
       new Date(m.matchDate).getTime() <= now
   )
 
-  if (pending.length === 0) {
-    return { dry, days: 0, failedDays: 0, feed: 0, applied: [], errors: [], unmatched: [] }
-  }
-
-  const days = daysAround(pending.map((m) => new Date(m.matchDate)))
-  const { fixtures, failedDays } = await fetchFixturesForDays(days)
-
   const applied: Array<{ id: number; score: string }> = []
   const errors: Array<{ id: number; error: string }> = []
   const unmatched: Array<{ id: number; teams: string }> = []
+  let failedDays = 0
+  let fixtures: Awaited<ReturnType<typeof fetchFixturesForDays>>['fixtures'] = []
+
+  if (pending.length > 0) {
+    const days = daysAround(pending.map((m) => new Date(m.matchDate)))
+    const fetched = await fetchFixturesForDays(days)
+    fixtures = fetched.fixtures
+    failedDays = fetched.failedDays
+  }
 
   for (const m of pending) {
     const fx = findFixture(m, fixtures)
@@ -120,15 +122,18 @@ async function sync(dry: boolean) {
     }
   }
 
-  if (!dry && applied.length) await resolveBracket()
+  // Always resolve the bracket (idempotent) — not just after applying a result.
+  // This lets a plain call to this endpoint fill knockout teams from results
+  // that are already in the DB (e.g. entered by hand before this code existed).
+  const resolved = dry ? [] : await resolveBracket()
 
   return {
     dry,
-    days: days.length,
     failedDays, // days skipped due to feed errors / rate limiting
     feed: fixtures.length,
     applied,
     errors,
+    resolved, // ids of knockout matches whose teams were just filled in
     unmatched, // real-team matches the feed didn't name-match — extend ALIASES in lib/team-names.ts
   }
 }
