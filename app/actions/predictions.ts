@@ -2,7 +2,8 @@
 
 import { auth } from '@/lib/auth'
 import { requireAdmin } from '@/lib/admin'
-import { hasPlaceholderTeams } from '@/lib/match-utils'
+import { hasPlaceholderTeams, isPlaceholderTeam } from '@/lib/match-utils'
+import { applyMatchResult } from '@/lib/match-results'
 import { db } from '@/lib/db'
 import { matches, predictions } from '@/lib/db/schema'
 import { and, desc, eq, sql, asc } from 'drizzle-orm'
@@ -201,53 +202,51 @@ export async function createMatch(data: {
 export async function updateMatchResult(
   matchId: number,
   homeScore: number,
-  awayScore: number
+  awayScore: number,
+  homePenalties?: number | null,
+  awayPenalties?: number | null
 ) {
   await requireAdmin()
-
-  for (const score of [homeScore, awayScore]) {
-    if (!Number.isInteger(score) || score < 0 || score > 99) {
-      throw new Error('Marcador invalido')
-    }
-  }
-
-  // Update match
-  await db
-    .update(matches)
-    .set({ homeScore, awayScore, status: 'finished' })
-    .where(eq(matches.id, matchId))
-
-  // Calculate points for predictions
-  const matchPredictions = await db
-    .select()
-    .from(predictions)
-    .where(eq(predictions.matchId, matchId))
-
-  for (const pred of matchPredictions) {
-    let points = 0
-    const actualWinner =
-      homeScore > awayScore ? 'home' : homeScore < awayScore ? 'away' : 'draw'
-
-    // Points for correct winner
-    if (pred.predictedWinner === actualWinner) {
-      points += 3
-    }
-
-    // Bonus points for exact score
-    if (
-      pred.predictedHomeScore === homeScore &&
-      pred.predictedAwayScore === awayScore
-    ) {
-      points += 5
-    }
-
-    await db
-      .update(predictions)
-      .set({ points })
-      .where(eq(predictions.id, pred.id))
-  }
+  await applyMatchResult(matchId, homeScore, awayScore, homePenalties, awayPenalties)
 
   revalidatePath('/')
   revalidatePath('/leaderboard')
+  revalidatePath('/simulacion')
+  revalidatePath('/admin')
+}
+
+// Admin: manually set/override the teams of a match. Used to fill knockout
+// fixtures when auto-resolution can't (e.g. third-place edge cases) or to fix
+// a mistake. Re-scores any predictions already placed against the old teams.
+export async function updateMatchTeams(
+  matchId: number,
+  data: {
+    homeTeam: string
+    awayTeam: string
+    homeFlag?: string | null
+    awayFlag?: string | null
+  }
+) {
+  await requireAdmin()
+
+  if (!data.homeTeam?.trim() || !data.awayTeam?.trim()) {
+    throw new Error('Ambos equipos son obligatorios')
+  }
+  if (isPlaceholderTeam(data.homeTeam) || isPlaceholderTeam(data.awayTeam)) {
+    throw new Error('Ingresa equipos reales, no marcadores de posicion')
+  }
+
+  await db
+    .update(matches)
+    .set({
+      homeTeam: data.homeTeam.trim(),
+      awayTeam: data.awayTeam.trim(),
+      homeFlag: data.homeFlag?.trim() || null,
+      awayFlag: data.awayFlag?.trim() || null,
+    })
+    .where(eq(matches.id, matchId))
+
+  revalidatePath('/')
+  revalidatePath('/simulacion')
   revalidatePath('/admin')
 }

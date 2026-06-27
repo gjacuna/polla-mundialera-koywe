@@ -8,6 +8,13 @@
       "when": 1780671789278,
       "tag": "0000_rainy_kinsey_walden",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782510146225,
+      "tag": "0001_foamy_calypso",
+      "breakpoints": true
     }
   ]
 }
