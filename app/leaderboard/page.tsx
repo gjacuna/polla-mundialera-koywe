@@ -2,6 +2,7 @@ import { auth } from '@/lib/auth'
 import { isAdminEmail } from '@/lib/admin'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { getLeaderboard } from '@/app/actions/predictions'
 import { Header } from '@/components/header'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -42,9 +43,10 @@ export default async function LeaderboardPage() {
             ) : (
               <div className="space-y-2">
                 {leaderboard.map((player, index) => (
-                  <div
+                  <Link
                     key={String(player.id)}
-                    className={`flex items-center justify-between rounded-lg p-4 ${
+                    href={`/leaderboard/${String(player.id)}`}
+                    className={`flex items-center justify-between rounded-lg p-4 transition hover:brightness-95 ${
                       player.id === session.user.id
                         ? 'bg-secondary/20 border border-secondary'
                         : 'bg-muted/50'
@@ -84,7 +86,7 @@ export default async function LeaderboardPage() {
                       </p>
                       <p className="text-xs text-muted-foreground">puntos</p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}

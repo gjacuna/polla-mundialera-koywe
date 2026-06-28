@@ -5,8 +5,9 @@ import { requireAdmin } from '@/lib/admin'
 import { hasPlaceholderTeams, isPlaceholderTeam } from '@/lib/match-utils'
 import { applyMatchResult } from '@/lib/match-results'
 import { resolveBracket } from '@/lib/bracket'
+import { scorePrediction, type ScoreBreakdown } from '@/lib/scoring'
 import { db } from '@/lib/db'
-import { matches, predictions } from '@/lib/db/schema'
+import { matches, predictions, user } from '@/lib/db/schema'
 import { and, desc, eq, sql, asc } from 'drizzle-orm'
 import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
@@ -161,6 +162,79 @@ export async function getLeaderboard() {
     ORDER BY "totalPoints" DESC, "totalPredictions" DESC
   `)
   return result.rows
+}
+
+export type ScorecardItem = {
+  matchId: number
+  stage: string
+  homeTeam: string
+  awayTeam: string
+  homeFlag: string | null
+  awayFlag: string | null
+  matchDate: Date
+  homeScore: number
+  awayScore: number
+  predictedWinner: string
+  predictedHomeScore: number | null
+  predictedAwayScore: number | null
+  breakdown: ScoreBreakdown
+}
+
+export type Scorecard = {
+  user: { id: string; name: string }
+  total: number
+  items: ScorecardItem[]
+}
+
+// A player's finished-match predictions with a per-pick point breakdown, for
+// the click-through ranking detail / audit view. Only finished matches are
+// returned, so it never leaks picks for matches that haven't kicked off.
+export async function getUserScorecard(userId: string): Promise<Scorecard | null> {
+  await getUserId() // any signed-in user may view
+
+  const [u] = await db
+    .select({ id: user.id, name: user.name })
+    .from(user)
+    .where(eq(user.id, userId))
+  if (!u) return null
+
+  const rows = await db
+    .select({
+      matchId: matches.id,
+      stage: matches.stage,
+      homeTeam: matches.homeTeam,
+      awayTeam: matches.awayTeam,
+      homeFlag: matches.homeFlag,
+      awayFlag: matches.awayFlag,
+      matchDate: matches.matchDate,
+      homeScore: matches.homeScore,
+      awayScore: matches.awayScore,
+      predictedWinner: predictions.predictedWinner,
+      predictedHomeScore: predictions.predictedHomeScore,
+      predictedAwayScore: predictions.predictedAwayScore,
+    })
+    .from(predictions)
+    .innerJoin(matches, eq(predictions.matchId, matches.id))
+    .where(and(eq(predictions.userId, userId), eq(matches.status, 'finished')))
+    .orderBy(asc(matches.matchDate))
+
+  const items: ScorecardItem[] = []
+  let total = 0
+  for (const r of rows) {
+    if (r.homeScore == null || r.awayScore == null) continue
+    const breakdown = scorePrediction(
+      {
+        predictedWinner: r.predictedWinner,
+        predictedHomeScore: r.predictedHomeScore,
+        predictedAwayScore: r.predictedAwayScore,
+      },
+      { homeScore: r.homeScore, awayScore: r.awayScore, stage: r.stage }
+    )
+    total += breakdown.total
+    items.push({ ...r, homeScore: r.homeScore, awayScore: r.awayScore, breakdown })
+  }
+
+  return { user: u, total, items }
 }
 
 export async function getUserStats() {
