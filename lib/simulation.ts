@@ -274,12 +274,21 @@ export function simulateRound32(
     return sim.standings[index] ?? null
   }
 
-  // best 8 third-placed teams (only from fully decided groups)
-  const thirds = groupSims
-    .filter((g) => g.decided === g.total && g.standings[2])
-    .map((g) => ({ group: g.group, row: g.standings[2] }))
-    .sort((a, b) => compareStandings(a.row, b.row))
-    .slice(0, 8)
+  // Third-place allocation depends on WHICH 8 of the 12 groups' thirds qualify,
+  // so it can only be computed once EVERY group is decided. Resolving earlier
+  // (when just 8 groups are done) picks the wrong "best 8" and, because results
+  // are written incrementally, leaves stale/duplicate teams.
+  const allGroupsDecided =
+    groupSims.length > 0 && groupSims.every((g) => g.decided === g.total)
+
+  // best 8 third-placed teams across all groups
+  const thirds = allGroupsDecided
+    ? groupSims
+        .filter((g) => g.standings[2])
+        .map((g) => ({ group: g.group, row: g.standings[2] }))
+        .sort((a, b) => compareStandings(a.row, b.row))
+        .slice(0, 8)
+    : []
 
   const r32 = matches
     .filter((m) => m.stage === 'Dieciseisavos de Final')
