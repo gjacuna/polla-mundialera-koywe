@@ -83,10 +83,10 @@ export async function resolveBracket(): Promise<number[]> {
   const groups = simulateGroups(sim, [], 'actual')
 
   // Fill placeholders only — never overwrite a slot that already holds a real
-  // team. Third-place allocation (FIFA Annexe C) can't be reproduced exactly
-  // here, so once a third-place team is set (auto or hand-corrected by an
-  // admin) it must stick; re-resolving must not clobber it.
-  const r32 = simulateRound32(sim, groups)
+  // team. And don't auto-assign the best-thirds (FIFA Annexe C can't be
+  // reproduced here): those 8 slots stay as placeholders for an admin to set,
+  // and once set they stick. 1°/2° slots and winner-propagation still resolve.
+  const r32 = simulateRound32(sim, groups, false)
   for (const match of r32) {
     const current = byId.get(match.id)
     if (!current) continue
