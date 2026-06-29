@@ -22,22 +22,6 @@ type MatchRow = typeof matchesTable.$inferSelect
 const WINNER_RE = /^Ganador Partido (\d+)$/
 const LOSER_RE = /^Perdedor Partido (\d+)$/
 
-// The 8 round-of-32 third-place slots and their original seed placeholders
-// (match ids align with FIFA match numbers). We keep these here so the
-// resolution can RESET a slot to its placeholder and recompute it — third-place
-// allocation depends on all 12 groups, so an earlier (wrong) assignment written
-// to the DB must be overwritten once every group is decided, not left frozen.
-const THIRD_PLACE_SLOTS: { matchId: number; side: 'away'; placeholder: string }[] = [
-  { matchId: 74, side: 'away', placeholder: '3° Grupo A/B/C/D/F' },
-  { matchId: 77, side: 'away', placeholder: '3° Grupo C/D/F/G/H' },
-  { matchId: 79, side: 'away', placeholder: '3° Grupo C/E/F/H/I' },
-  { matchId: 80, side: 'away', placeholder: '3° Grupo E/H/I/J/K' },
-  { matchId: 81, side: 'away', placeholder: '3° Grupo B/E/F/I/J' },
-  { matchId: 82, side: 'away', placeholder: '3° Grupo A/E/H/I/J' },
-  { matchId: 85, side: 'away', placeholder: '3° Grupo E/F/G/I/J' },
-  { matchId: 87, side: 'away', placeholder: '3° Grupo D/E/I/J/L' },
-]
-
 // Winner/loser of a finished knockout match. Ties are broken by the penalty
 // shootout score; if scores are level with no penalties recorded we can't
 // tell, so we return null and leave dependent slots unresolved.
@@ -98,22 +82,10 @@ export async function resolveBracket(): Promise<number[]> {
   }))
   const groups = simulateGroups(sim, [], 'actual')
 
-  // Once every group is decided, reset the third-place slots to their
-  // placeholders so simulateRound32 recomputes them from the final standings.
-  // This overwrites any earlier (premature/incorrect) third-place assignment
-  // that was already written to the DB.
-  const allGroupsDecided =
-    groups.length > 0 && groups.every((g) => g.decided === g.total)
-  if (allGroupsDecided) {
-    const simById = new Map(sim.map((m) => [m.id, m]))
-    for (const slot of THIRD_PLACE_SLOTS) {
-      const sm = simById.get(slot.matchId)
-      if (sm) sm.awayTeam = slot.placeholder
-      const bm = byId.get(slot.matchId)
-      if (bm) bm.awayTeam = slot.placeholder
-    }
-  }
-
+  // Fill placeholders only — never overwrite a slot that already holds a real
+  // team. Third-place allocation (FIFA Annexe C) can't be reproduced exactly
+  // here, so once a third-place team is set (auto or hand-corrected by an
+  // admin) it must stick; re-resolving must not clobber it.
   const r32 = simulateRound32(sim, groups)
   for (const match of r32) {
     const current = byId.get(match.id)
