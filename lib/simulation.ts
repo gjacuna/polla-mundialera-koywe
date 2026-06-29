@@ -263,7 +263,12 @@ export type Round32Match = {
  */
 export function simulateRound32(
   matches: SimMatch[],
-  groupSims: GroupSim[]
+  groupSims: GroupSim[],
+  // The best-thirds → slot allocation (FIFA Annexe C) can't be reproduced
+  // exactly here, so the real bracket sets it by hand. The projection still
+  // shows a best-effort assignment (default true); the DB resolution passes
+  // false to leave third-place slots as placeholders for an admin to fill.
+  assignThirds = true
 ): Round32Match[] {
   const byGroup = new Map(groupSims.map((g) => [g.group, g]))
 
@@ -327,7 +332,7 @@ export function simulateRound32(
     if (solve(i + 1, used)) return true
     return false
   }
-  if (thirds.length === 8) solve(0, new Set())
+  if (assignThirds && thirds.length === 8) solve(0, new Set())
 
   const resolveSlot = (m: SimMatch, side: 'home' | 'away'): ResolvedSlot => {
     const label = side === 'home' ? m.homeTeam : m.awayTeam
